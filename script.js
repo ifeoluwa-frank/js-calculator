@@ -88,12 +88,12 @@ function calculate() {
   });
 
   btnDivide.addEventListener("click", function () {
-    currentValue += "/";
+    currentValue += "÷";
     result.value = currentValue;
   });
 
   btnMultiply.addEventListener("click", function () {
-    currentValue += "*";
+    currentValue += "×";
     result.value = currentValue;
   });
 
@@ -107,14 +107,17 @@ function calculate() {
   }
 
   btnEquals.addEventListener("click", function () {
+    result.value = result.value.replace(/÷/g, "/");
+    result.value = result.value.replace(/×/g, "*");
     let calcResult = eval(result.value);
 
     if (hasDecimal(calcResult)) {
-      result.value = calcResult;
+      // result.value = Math.round(calcResult * 100) / 100;
+      result.value = calcResult.toFixed(3);
+      console.log(typeof result.value);
     } else {
-      result.value = Math.round(calcResult);
+      result.value = calcResult;
     }
   });
 }
-
 calculate();
